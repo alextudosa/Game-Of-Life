@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button[][] buttonsCreated = new Button[6][6];
     private int[][] matrixState0 = new int[8][8];
@@ -44,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 String buttonID = Integer.toString(i) + Integer.toString(j);
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 buttonsCreated[i][j] = findViewById(resID);
+
+                setValueFirstSetOfButtons();
+
+                buttonsCreated[i][j].setOnClickListener(this);
             }
         }
 
-        setValueFirstSetOfButtons();
 
 
         Button nextStepButton = findViewById(R.id.nextStepBtn);
@@ -65,6 +68,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @Override
+    public void onClick(View v) {
+        Button pushedButton = (Button) v;
+
+        int theIDPushedButton = pushedButton.getId();
+
+        for (int i = 0; i < 6; i++){
+            for (int j = 0; j < 6; j++){
+                int theIDBoardButton = buttonsCreated[i][j].getId();
+                if (theIDBoardButton == theIDPushedButton){
+                    matrixState0[i+1][j+1] = 1;
+                    pushedButton.setBackgroundColor(Color.parseColor("#000000"));
+                }
+            }
+        }
+    }
 
     private void createInitialMatrix0() {
 
