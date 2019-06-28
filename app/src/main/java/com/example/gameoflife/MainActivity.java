@@ -67,15 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void createInitialMatrix0() {
-        int stateActive = 1;
+
         int stateInactive = 0;
         for (int i = 0; i < matrixState0.length; i++) {
             for (int j = 0; j < matrixState0[0].length; j++) {
                 matrixState0[i][j] = stateInactive;
 
-                if ((i == 3 && j == 4) || (i == 3 && j == 5) || (i == 3 && j == 6)) {
-                    matrixState0[i][j] = stateActive;
-                }
             }
         }
     }
