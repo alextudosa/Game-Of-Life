@@ -209,38 +209,312 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int searchAliveCellsForDeadCells(int i, int j) {
 
         int count = 0;
+        int rowLenght = matrixState1.length;
+        int colLenght = matrixState1[0].length;
 
+        if( i == 1  && j == 1){ //for  point 00
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j - 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][rowLenght]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][1]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j + 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][j + 1]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][colLenght]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i+1][colLenght]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j - 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j + 1]) {
-            count++;
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
+        }else if( i == 1  && j != 1 && j != colLenght){ //top line
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
+        }else if (j == 1 && i != 1 && i != rowLenght){ // left column
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i-1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i+1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
+        }else if( i == rowLenght  && j != 1 && j != colLenght){  //bottom line
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j + 1]) {
+                count++;
+            }
+        }else if( j == colLenght && i != rowLenght  && i != 1){ // right column
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+        }else if( i == rowLenght && j == 0 ){ //for point 50
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][rowLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][colLenght + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j + 1]) {
+                count++;
+            }
+        }else if( i == rowLenght && j == colLenght ) { //for point 55
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght - 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+        }else if( i == 1 && j == colLenght ){ //point 05
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[rowLenght][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
+                count++;
+            }
+        }else {
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i - 1][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] != matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
         }
 
         return count;
@@ -251,37 +525,311 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int count = 0;
 
+        int rowLenght = matrixState1.length;
+        int colLenght = matrixState1[0].length;
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i - 1][j - 1]) {
-            count++;
-        }
+        if( i == 1  && j == 1){ //for  point 00
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i - 1][j]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][rowLenght]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i - 1][j + 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][1]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i][j - 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][j + 1]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i][j + 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][colLenght]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i + 1][j - 1]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i+1][colLenght]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i + 1][j]) {
-            count++;
-        }
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
 
-        if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i + 1][j + 1]) {
-            count++;
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
+        }else if( i == 1  && j != 1 && j != colLenght){ //top line
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
+        }else if (j == 1 && i != 1 && i != rowLenght){ // left column
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i-1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i+1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j + 1]) {
+                count++;
+            }
+
+        }else if( i == rowLenght  && j != 1 && j != colLenght){  //bottom line
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j + 1]) {
+                count++;
+            }
+        }else if( j == colLenght && i != rowLenght  && i != 1){ // right column
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+        }else if( i == rowLenght && j == 0 ){ //for point 50
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][rowLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][colLenght + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j + 1]) {
+                count++;
+            }
+        }else if( i == rowLenght && j == colLenght ) { //for point 55
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght - 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+        }else if( i == 1 && j == colLenght ){ //point 05
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][colLenght]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[rowLenght][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 0 && matrixState0[i][j] == matrixState0[i + 1][j]) {
+                count++;
+            }
+        }else {
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i - 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i - 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i - 1][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i][j + 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i + 1][j - 1]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i + 1][j]) {
+                count++;
+            }
+
+            if (matrixState0[i][j] == 1 && matrixState0[i][j] == matrixState0[i + 1][j + 1]) {
+                count++;
+            }
         }
 
         return count;
