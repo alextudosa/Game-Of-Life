@@ -20,8 +20,37 @@
             android:layout_height="wrap_content"
             android:text="Next Step"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="40dp"
-            android:textSize="20dp"/>
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:id="@+id/fileNameInput"
+            android:hint="Insert File Name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+        <Button
+            android:id="@+id/SaveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Model"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"/>
+
+
+
+        <Spinner
+            android:id="@+id/ListBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Select Model"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            />
+
     </LinearLayout>
 
     <LinearLayout
