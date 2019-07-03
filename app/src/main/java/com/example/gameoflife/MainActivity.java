@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -96,8 +97,103 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
+
+        final Spinner listOfFilesInSpinner = (Spinner) findViewById(R.id.ListBtn);
+
+
+
+
+        listOfFilesInSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                createInitialMatrix0();
+                setValueFirstSetOfButtons();
+                int i=1, j=1;
+                String selectedPathInSpinner = listOfFilesInSpinner.getSelectedItem().toString();
+                String selectedPathInSpinnerWithExtension = selectedPathInSpinner + ".txt";
+  //              Log.w("Create File", "Path is:  " + searchForFilesInDirectory(selectedPathInSpinner));
+                String filePath = searchForFilesInDirectory(selectedPathInSpinnerWithExtension);
+                try {
+                    BufferedReader text = new BufferedReader(new FileReader(filePath));
+                    String line;
+                    while((line = text.readLine()) != null){
+
+                        String[] values = line.split(",");
+
+                        for (String val : values){
+                            int valPosition = Integer.parseInt(val);
+                            matrixState0[i][j] = valPosition;
+//                            Log.w("Create File", "Path is: " +i + "" + j + " " + matrixState0[i][j]);
+                            j++;
+                        }
+                        j=1;
+                        i++;
+                    }
+
+                    text.close();
+                    setValueFirstSetOfButtonsOnLoad();
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
+
+    private String searchForFilesInDirectory(String path){
+        String allPath = "";
+
+        File pathToDir = new File(Environment.getExternalStorageDirectory() + File.separator,"GameOfLifeModels");
+        File filesDir = new File(String.valueOf(pathToDir));
+        File[] files = filesDir.listFiles();
+        for (int i=0; i<files.length; i++){
+            if (files[i].getName().equals(path)){
+                allPath = files[i].getPath();
+            }
+        }
+
+
+        return allPath;
+    }
+
+
+    private void updateSpinnerOnDataChange(){
+
+        Spinner listOfFilesInSpinner = (Spinner) findViewById(R.id.ListBtn);
+        ArrayAdapter<String> adapter;
+        listOfFilesCreated();
+
+
+        adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, fileNamesForSpinner);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            listOfFilesInSpinner.setAdapter(adapter);
+    }
+
+    private void clearSpinnerOnDataChange(){
+
+        Spinner listOfFilesInSpinner = (Spinner) findViewById(R.id.ListBtn);
+        ArrayAdapter<String> adapter;
+        listOfFilesCreated();
+
+        adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, fileNamesForSpinner);
+        adapter.clear();
+        listOfFilesInSpinner.setAdapter(adapter);
+        updateSpinnerOnDataChange();
+
+    }
 
     private List<String> fileNamesForSpinner = new ArrayList<>();
 
@@ -246,6 +342,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int j = 1; j < matrixState0[0].length; j++) {
                 if (matrixState0[i][j] == 1) {
                     buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#000000"));
+                }
+            }
+        }
+    }
+
+
+
+    private void setValueFirstSetOfButtonsOnLoad() {
+
+        for (int i = 1; i < matrixState0.length-1; i++) {
+            for (int j = 1; j < matrixState0[0].length - 1; j++) {
+
+
+                if (matrixState0[i][j] == 1) {
+                    buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#000000"));
+                }else{
+                        buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#eeeeee"));
                 }
             }
         }
