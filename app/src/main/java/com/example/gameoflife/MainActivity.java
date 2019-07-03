@@ -2,12 +2,27 @@ package com.example.gameoflife;
 
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -38,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createButtonsForLayout(layoutButtonsLine5, 4);
         createButtonsForLayout(layoutButtonsLine6, 5);
 
+        final EditText addFileName = findViewById(R.id.fileNameInput);
+        updateSpinnerOnDataChange();
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
@@ -64,8 +81,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        Button saveButton = findViewById(R.id.SaveBtn);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String getFileName = addFileName.getText().toString();
+                saveMatrixInFile(getFileName, matrixState0.length, matrixState0[0].length);
+                clearSpinnerOnDataChange();
+
+            }
+        });
+
+
     }
 
+
+    private List<String> fileNamesForSpinner = new ArrayList<>();
+
+    private void listOfFilesCreated(){
+
+        File path = new File(Environment.getExternalStorageDirectory() + File.separator,"GameOfLifeModels");
+        File filesDir = new File(String.valueOf(path));
+        if (filesDir.exists()) {
+            File[] files = filesDir.listFiles();
+
+            for (int i = 0; i < files.length; i++) {
+                    String nameWithExtension = files[i].getName();
+                    String nameWithoutExtension = nameWithExtension.substring(0, nameWithExtension.length() - 4);
+                    fileNamesForSpinner.add(nameWithoutExtension);
+
+            }
+        }
+
+    }
+
+    private void saveMatrixInFile(String fileName, int line, int col){
+
+        String createFileName = fileName + ".txt";
+
+
+          File myWorkingDir = new File(Environment.getExternalStorageDirectory() + File.separator,"GameOfLifeModels");
+        File file = new File(myWorkingDir + File.separator, createFileName);
+
+
+        try {
+
+            if(!myWorkingDir.exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream createFile = new FileOutputStream(file);
+
+         //   BufferedWriter writeInFile = new BufferedWriter(new FileWriter(file));
+
+            for(int i = 1; i < line -1; i++){
+                for (int j = 1; j < col -1; j++){
+                    createFile.write((matrixState0[i][j] + ((j == matrixState0[0].length-2) ? "\n" : ",")).getBytes());
+                }
+
+            }
+
+            createFile.close();
+            Toast.makeText(this, "Saved",Toast.LENGTH_SHORT).show();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "File Not Found",Toast.LENGTH_SHORT).show();
+        } catch (IOException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Error Saving",Toast.LENGTH_SHORT).show();
+//            Log.w("Create File", "Failed to write in " + file.toString());
+        }
+
+
+
+    }
 
 
     @Override
