@@ -1,9 +1,12 @@
 package com.example.gameoflife;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -89,10 +92,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
 
 
-                String getFileName = addFileName.getText().toString();
-                saveMatrixInFile(getFileName, matrixState0.length, matrixState0[0].length);
-                clearSpinnerOnDataChange();
+                final String getFileName = addFileName.getText().toString();
+                //Aici adaug verificare nume existent
+                int existOrNot = 0;
+                File path = new File(Environment.getExternalStorageDirectory() + File.separator,"GameOfLifeModels");
+                File filesDir = new File(String.valueOf(path));
+                if (filesDir.exists()) {
+                    for(int i = 0; i < fileNamesForSpinner.size(); i++){
+                        String existingNames = fileNamesForSpinner.get(i);
+                        if (existingNames.equals(getFileName)){
+                            existOrNot++;
 
+                        }
+                    }
+                    if (existOrNot == 0){
+                        saveMatrixInFile(getFileName, matrixState0.length, matrixState0[0].length);
+                        clearSpinnerOnDataChange();
+                    }else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage("Do you want to overwrite this file?").setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            saveMatrixInFile(getFileName, matrixState0.length, matrixState0[0].length);
+                                            clearSpinnerOnDataChange();
+                                            
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(getApplicationContext(), "Access Denied", Toast.LENGTH_SHORT).show();
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                            AlertDialog alert = builder.create();
+                            alert.setTitle("Warning!");
+                            alert.show();
+                    }
+                }
             }
         });
 
