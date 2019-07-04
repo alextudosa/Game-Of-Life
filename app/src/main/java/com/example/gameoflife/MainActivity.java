@@ -305,13 +305,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button pushedButton = (Button) v;
 
         int theIDPushedButton = pushedButton.getId();
+        int blackCellsCount = 0;
+        int redCellsCount = 0;
 
-        for (int i = 0; i < 6; i++){
-            for (int j = 0; j < 6; j++){
-                int theIDBoardButton = buttonsCreated[i][j].getId();
-                if (theIDBoardButton == theIDPushedButton){
-                    matrixState0[i+1][j+1] = 1;
-                    pushedButton.setBackgroundColor(Color.parseColor("#000000"));
+        for (int m = 0; m < 6; m++) {
+            for (int n = 0; n < 6; n++) {
+                if (matrixState0[m + 1][n + 1] == 1) {
+                    blackCellsCount++;
+                } else if (matrixState0[m + 1][n + 1] == 2) {
+                    redCellsCount++;
+                }
+            }
+        }
+
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+
+
+                    int theIDBoardButton = buttonsCreated[i][j].getId();
+                    if (theIDBoardButton == theIDPushedButton) {
+
+                        if (blackCellsCount < redCellsCount) {
+                            matrixState0[i + 1][j + 1] = 1;
+                            pushedButton.setBackgroundColor(Color.parseColor("#000000"));
+                        } else if (blackCellsCount > redCellsCount) {
+                            matrixState0[i + 1][j + 1] = 2;
+                            buttonsCreated[i][j].setBackgroundColor(Color.parseColor("#FF0000"));
+                        } else if (blackCellsCount == redCellsCount) {
+                            matrixState0[i + 1][j + 1] = 1;
+                            pushedButton.setBackgroundColor(Color.parseColor("#000000"));
+                        }
+
                 }
             }
         }
@@ -382,6 +407,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int j = 1; j < matrixState0[0].length; j++) {
                 if (matrixState0[i][j] == 1) {
                     buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#000000"));
+                }else if (matrixState0[i][j] == 2){
+                    buttonsCreated[i-1][j-1].setBackgroundColor(Color.parseColor("#FF0000"));
                 }
             }
         }
@@ -397,8 +424,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (matrixState0[i][j] == 1) {
                     buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#000000"));
-                }else{
+                }else if (matrixState0[i][j] == 0){
                         buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#eeeeee"));
+                }else if (matrixState0[i][j] == 2) {
+                    buttonsCreated[i - 1][j - 1].setBackgroundColor(Color.parseColor("#FF0000"));
                 }
             }
         }
@@ -407,29 +436,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setColorButtonsNextStep() {
 
-        cellBornOrSurvive();
+        int gotWinner = searchLastCellAlive();
+
+        if (gotWinner != 1) {  //if we have winner then stop game
+            cellBornOrSurvive();
+
+            for (int i = 0; i < matrixState1.length; i++) {
+                for (int j = 0; j < matrixState1[0].length; j++) {
+                    if (matrixState1[i][j] == 1) {
+
+                        buttonsCreated[i][j].setBackgroundColor(Color.parseColor("#000000"));
+                    } else if (matrixState1[i][j] == 0) {
+
+                        buttonsCreated[i][j].setBackgroundColor(Color.parseColor("#eeeeee"));
+                    } else if (matrixState1[i][j] == 2) {
+                        buttonsCreated[i][j].setBackgroundColor(Color.parseColor("#FF0000"));
+                    }
+                }
+            }
+
+            moveValueFromMatrix1ToMatrix0();
+            String theWinner = whoWins();
+            if (theWinner.equals("Player 1 Wins!") || theWinner.equals("Player 2 Wins!") || theWinner.equals("DRAW!")) {
+                Toast.makeText(getApplicationContext(), theWinner, Toast.LENGTH_SHORT).show();
+            } else {
+                resetMatrix1();
+            }
+        }
+    }
+
+    private String whoWins() {
+
+        String winner = "";
+        int count1 = 0;
+        int count2 = 0;
 
         for (int i = 0; i < matrixState1.length; i++) {
             for (int j = 0; j < matrixState1[0].length; j++) {
                 if (matrixState1[i][j] == 1) {
+                    count1++;
+                }if (matrixState1[i][j] == 2)
+                    count2++;
+            }
+        }
 
-                    buttonsCreated[i][j].setBackgroundColor(Color.parseColor("#000000"));
-                }else{
+        if (count1 == 1 && count2 == 0){
+            winner = "Player 1 Wins!";
+        }else if (count2 == 1 && count1 == 0){
+            winner = "Player 2 Wins!";
+        }else if (count1 == 0 && count2 == 0){
+            winner = "DRAW!";
+        }
 
-                    buttonsCreated[i][j].setBackgroundColor(Color.parseColor("#eeeeee"));
+        return winner;
+    }
+
+    private int searchLastCellAlive() {
+        int count = 0;
+        int weHaveAWinner = 0;
+
+        for (int i = 0; i < matrixState1.length; i++) {
+            for (int j = 0; j < matrixState1[0].length; j++) {
+                if (matrixState1[i][j] != 0) {
+                    count++;
                 }
             }
         }
 
-        moveValueFromMatrix1ToMatrix0();
-        resetMatrix1();
-    }
+        if (count == 1){
+            weHaveAWinner = count;
+        }
 
+        return weHaveAWinner;
+    }
 
     private void cellBornOrSurvive() {
 
         int countAliveCellsForDeadCells = 0;
         int countAliveCellsForAliveCells = 0;
+        int redCellsCount = 0;
+        int blackCellsCount = 0;
+
         createEmptyMatrix1();
 
         for (int i = 1; i < matrixState0.length - 1; i++) {
@@ -437,15 +524,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 countAliveCellsForDeadCells = searchAliveCellsForDeadCells(i, j);
 
                 if (countAliveCellsForDeadCells == 3) {
-                    matrixState1[i - 1][j - 1] = 1;
-
+                    if (blackCellsCount < redCellsCount) {
+                        matrixState1[i - 1][j - 1] = 1;
+                        blackCellsCount++;
+                    } else if (blackCellsCount > redCellsCount) {
+                        matrixState1[i - 1][j - 1] = 2;
+                        redCellsCount++;
+                    } else if (blackCellsCount == redCellsCount) {
+                        matrixState1[i - 1][j - 1] = 1;
+                        blackCellsCount++;
+                    }
                 }
+
 
                 countAliveCellsForAliveCells = searchAliveCellsForAliveCells(i, j);
 
-                if (countAliveCellsForAliveCells == 2 || countAliveCellsForAliveCells == 3) {
-                    matrixState1[i - 1][j - 1] = 1;
 
+
+                if (countAliveCellsForAliveCells == 2 || countAliveCellsForAliveCells == 3) {
+
+                    if (countAliveCellsForDeadCells == 3) {
+                        if (blackCellsCount < redCellsCount) {
+                            matrixState1[i - 1][j - 1] = 1;
+                            blackCellsCount++;
+                        } else if (redCellsCount < blackCellsCount) {
+                            matrixState1[i - 1][j - 1] = 2;
+                            redCellsCount++;
+                        } else if (blackCellsCount == redCellsCount) {
+                            matrixState1[i - 1][j - 1] = 1;
+                            blackCellsCount++;
+                        }
+                    }
                 }
 
 
